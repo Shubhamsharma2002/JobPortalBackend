@@ -1,5 +1,5 @@
 
-
+// env settup
 import 'dotenv/config';
 
 import {server} from './app.js';
