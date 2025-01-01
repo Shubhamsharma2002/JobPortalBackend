@@ -7,6 +7,7 @@ const server = express();
 server.use(
     express.urlencoded({ extended: true })
 );
+// for data handlling
 server.use(express.json());
 
 
