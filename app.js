@@ -1,7 +1,7 @@
 import cors from "cors";
 import express from "express";
 import morgan from "morgan";
-
+// server by express
 const server = express();
 
 server.use(express.urlencoded({ extended: true }));
