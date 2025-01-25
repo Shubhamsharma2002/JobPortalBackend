@@ -12,5 +12,5 @@ const port = process.env.PORT || 5000;
 
 server.listen(port, ()=>{
    connectDB();
-    console.log(`server is fired sucessfully on port number ${port}`);
+    console.log(`server is fired sucessfully on port number::) ${port}`);
 })
