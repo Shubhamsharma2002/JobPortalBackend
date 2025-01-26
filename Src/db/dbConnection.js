@@ -11,6 +11,7 @@ const connectDB = async () => {
     // connection msg
     console.log(`databse connect ::)  ${connection}`);
   } catch (error) {
+    // error msg
     console.log("mongo db connection error");
     console.log(error);
   }
