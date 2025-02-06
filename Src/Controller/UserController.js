@@ -101,4 +101,10 @@ export const logout = async (req,res)=>{
 
 export const updateProfile = async(req,res)=>{
     // update profile concept is this 
+
+    try {
+        
+    } catch (error) {
+        
+    }
 }
