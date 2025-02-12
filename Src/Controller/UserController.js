@@ -102,9 +102,9 @@ export const logout = async (req,res)=>{
 export const updateProfile = async(req,res)=>{
     // update profile concept is this 
 
-    // try {
-    //     // extract data from req.body
-    // } catch (error) {
+    try {
+        // extract data from req.body
+    } catch (error) {
         
-    // }
+    }
 }
