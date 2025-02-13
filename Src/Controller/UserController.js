@@ -103,7 +103,32 @@ export const updateProfile = async(req,res)=>{
     // update profile concept is this 
 
     try {
-        // extract data from req.body
+        const{name,email,phoneNumber,bio,skills} = req.body;
+        const file = req.file;
+        if(!name || !email || !phoneNumber || !bio  || !skills){
+            return res.status(400).json({
+             message:"all feild are required",
+             success: false
+            });
+        }
+        const skillsArray = skills.split(",");
+        const userId = req.id ;
+        let user =  await User.findById(userId);
+
+        user.name = name,
+        user.email = email,
+        user.phoneNumber = phoneNumber,
+        user.profile.bio = bio,
+        user.profile.skills = skillsArray
+        // user.profile.resume = resume
+        // user.profile.profilepic = profilepic
+
+        const update_Data = await user.save();
+        return res.status(201).json({
+            update_Data,
+            message:"Profile updated  sucessfully",
+            success:true
+        })
     } catch (error) {
         
     }
