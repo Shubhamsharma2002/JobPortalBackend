@@ -2,6 +2,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import express from "express";
 import morgan from "morgan";
+import router from "./Src/Routes/Index.js";
 // server by express
 const server = express();
 // for data handlling
@@ -14,7 +15,7 @@ server.use(
     Credential: true,
   })
 );
-
+server.use('/api/v1', router);
 server.use(morgan("dev"));
 
 server.get("/", (req, res) => {

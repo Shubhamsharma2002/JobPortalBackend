@@ -1,4 +1,4 @@
-import User from '../Models/userModel.js';
+import {User} from '../Models/userModel.js';
 import bcrypt from "bcryptjs";
 import jwt from"jsonwebtoken"
 export const reqgister = async(req,res)=>{
@@ -132,4 +132,12 @@ export const updateProfile = async(req,res)=>{
     } catch (error) {
         
     }
+}
+
+export const resetPassword = async(req,res)=>{
+    return res.status(201).json({
+       
+        message:"chill  sucessfully",
+        success:true
+    })
 }
