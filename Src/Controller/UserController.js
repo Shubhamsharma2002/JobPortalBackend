@@ -105,23 +105,25 @@ export const updateProfile = async(req,res)=>{
     try {
         const{name,email,phoneNumber,bio,skills} = req.body;
         const file = req.file;
-        if(!name || !email || !phoneNumber || !bio  || !skills){
-            return res.status(400).json({
-             message:"all feild are required",
-             success: false
-            });
+       
+        let skillsArray;
+        console.log(skills);
+        if (skills) {
+            skillsArray = skills.replace(/\s+/g, ' ');
+            skillsArray = skillsArray.replaceAll(" ",",");
         }
-        const skillsArray = skills.split(",");
+        console.log(skillsArray);
         const userId = req.id ;
         let user =  await User.findById(userId);
+        if (!user.profile) {
+            user.profile = {}; // Initialize if it doesn't exist
+        }
 
-        user.name = name,
-        user.email = email,
-        user.phoneNumber = phoneNumber,
-        user.profile.bio = bio,
-        user.profile.skills = skillsArray
-        // user.profile.resume = resume
-        // user.profile.profilepic = profilepic
+        if (name) user.name = name;
+        if (email) user.email = email;
+        if (phoneNumber) user.phoneNumber = phoneNumber;
+        if (bio) user.profile.bio = bio;
+        if (skills) user.profile.skills = skillsArray;
 
         const update_Data = await user.save();
         return res.status(201).json({
@@ -130,7 +132,7 @@ export const updateProfile = async(req,res)=>{
             success:true
         })
     } catch (error) {
-        
+        console.error(error);
     }
 }
 
