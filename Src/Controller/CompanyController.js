@@ -66,3 +66,20 @@ export const getCompanyById = async (req, res) => {
     console.log(error);
   }
 };
+
+export const updateCompany = async(req,res)=>{
+    try {
+         const {name,description, website,location} = req.body;
+         const file = req.file;
+
+         const updatedata = {name,description,website,location};
+         const comapny = await Company.findByIdAndUpdate(req.params.id, updatedata , {new:true});
+         return res.status(200).json({
+            message: "company data updated sucessfully",
+            comapny,
+            success: false,
+          });
+    } catch (error) {
+        console.log(error);
+    }
+}
