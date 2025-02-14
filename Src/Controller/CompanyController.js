@@ -2,15 +2,15 @@ import { Company } from "../Models/companyModel.js";
 
 export const registerCompany = async (req, res) => {
   try {
-    const { companyname } = req.body;
-    if (!companyname) {
+    const { name } = req.body;
+    if (!name) {
       return res.status(400).json({
         message: "Company name is required",
         success: false,
       });
     }
 
-    let company = await Company.findOne({ name: companyname });
+    let company = await Company.findOne({ name: name });
     if (company) {
       return res.status(400).json({
         message: "Name alredy register with other orgnization",
@@ -18,13 +18,13 @@ export const registerCompany = async (req, res) => {
       });
     }
 
-    const res = await Company.create({
-      name: companyname,
+    const result = await Company.create({
+      name: name,
       userId: req.id,
     });
 
     return res.status(201).json({
-      res,
+        result,
       message: "comapny created sucessfully",
       success: true,
     });
@@ -43,6 +43,11 @@ export const getCompany = async (req, res) => {
         success: false,
       });
     }
+    return res.status(200).json({
+        message: "company found",
+        companies,
+        success: false,
+      });
   } catch (error) {
     console.log(error);
   }
@@ -69,12 +74,13 @@ export const getCompanyById = async (req, res) => {
 
 export const updateCompany = async(req,res)=>{
     try {
-         const {name,description, website,location} = req.body;
+         const {name,description, website} = req.body;
          const file = req.file;
 
-         const updatedata = {name,description,website,location};
+         const updatedata = {name,description,website};
          const comapny = await Company.findByIdAndUpdate(req.params.id, updatedata , {new:true});
-         return res.status(200).json({
+        //  console.log(req.params.id)
+         return res.status(500).json({
             message: "company data updated sucessfully",
             comapny,
             success: false,
