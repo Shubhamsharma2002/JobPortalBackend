@@ -4,7 +4,8 @@ import companyRouter from "./CompanyRouter.js";
 
 const router = express.Router();
 
-
+// authentication routes
 router.use("/user",userRouter)
+// comapany related routes
 router.use("/comapny",companyRouter)
 export default router;
