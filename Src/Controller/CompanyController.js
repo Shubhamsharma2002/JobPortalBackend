@@ -1,5 +1,5 @@
 import { Company } from "../Models/companyModel.js";
-
+// register company
 export const registerCompany = async (req, res) => {
   try {
     const { name } = req.body;
@@ -33,6 +33,7 @@ export const registerCompany = async (req, res) => {
   }
 };
 
+// get the company details
 export const getCompany = async (req, res) => {
   try {
     const userId = req.id;
@@ -53,6 +54,7 @@ export const getCompany = async (req, res) => {
   }
 };
 
+// by id search 
 export const getCompanyById = async (req, res) => {
   try {
     const comanyId = req.params.id;
