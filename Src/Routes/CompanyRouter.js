@@ -4,7 +4,7 @@ import jwtAuth from "../Middleware/jwtAuthMiddleware.js";
 import { getCompany, getCompanyById, registerCompany, updateCompany } from "../Controller/CompanyController.js";
 
 const companyRouter = express.Router();
-
+// routes
 companyRouter.route("/registerComapny").post(jwtAuth,registerCompany)
 companyRouter.route("/getcompany").get(jwtAuth,getCompany)
 companyRouter.route("/getcompanyByid/:id").get(jwtAuth,getCompanyById)
