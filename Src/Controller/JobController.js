@@ -63,3 +63,24 @@ export const getAlljob = async(req,res)=>{
         
     }
 }
+
+export const getJobbyId = async(req,res)=>{
+     try {
+        const JobId = req.params.id;
+        const job = await Job.findById(JobId);
+        if(!job){
+            return res.status(404).json({
+                message:"Job Not Found",
+                success:false
+            });
+         }
+         return res.status(200).json({
+            job,
+            message:"Jobs Found",
+            success:false
+        });
+     } catch (error) {
+        console.log(error);
+        
+     }
+}
