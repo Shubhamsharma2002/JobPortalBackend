@@ -98,7 +98,7 @@ export const getAdminJobs = async(req,res)=>{
          }
          return res.status(200).json({
             jobs,
-            message:"created Jobs Are",
+            message:"Posted Jobs Are",
             success:false
         });
 
