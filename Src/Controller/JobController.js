@@ -1,3 +1,4 @@
+import e from "express";
 import { Job } from "../Models/jobMdel.js";
 
 export const postJobs = async(req , res)=>{
@@ -84,3 +85,25 @@ export const getJobbyId = async(req,res)=>{
         
      }
 }
+
+export const getAdminJobs = async(req,res)=>{
+      try {
+          const adminId = req.id;
+          const jobs = await Job.find({created_by:adminId});
+          if(!jobs){
+            return res.status(404).json({
+                message:`No any jobs created by ${adminId.name}`,
+                success:false
+            });
+         }
+         return res.status(200).json({
+            jobs,
+            message:"created Jobs Are",
+            success:false
+        });
+
+      } catch (error) {
+        console.log(error);
+        
+      }
+} 
