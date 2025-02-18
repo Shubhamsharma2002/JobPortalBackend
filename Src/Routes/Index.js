@@ -9,5 +9,6 @@ const router = express.Router();
 router.use("/user",userRouter)
 // comapany related routes
 router.use("/comapny",companyRouter)
+// jobs realted routes
 router.use("/jobs",jobRouter)
 export default router;
