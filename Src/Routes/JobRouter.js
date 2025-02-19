@@ -7,7 +7,7 @@ const jobRouter = express.Router();
 // jobs routes
 jobRouter.route("/post-Jobs").post(jwtAuth,postJobs);
 jobRouter.route("/get-Alljobs").get(jwtAuth,getAlljob);
-jobRouter.route("/get-jobById").get(jwtAuth,getJobbyId);
+jobRouter.route("/get-jobById/:id").get(jwtAuth,getJobbyId);
 // geting job on only admin dashboard
 jobRouter.route("/get-jobByadmin").get(jwtAuth,getAdminJobs);
 // test routes

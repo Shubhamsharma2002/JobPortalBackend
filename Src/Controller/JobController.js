@@ -1,5 +1,6 @@
-import e from "express";
+import express from "express";
 import { Job } from "../Models/jobMdel.js";
+import { User } from "../Models/userModel.js";
 
 export const postJobs = async(req , res)=>{
       try {
@@ -46,7 +47,9 @@ export const getAlljob = async(req,res)=>{
                 {description:{$regex:keywords,$options:'i'}}
             ]
          }
-         const jobs = await Job.find(query);
+         const jobs = await Job.find(query)
+         .populate({path:"company"})
+         .sort({createdAt:-1});
 
          if(!jobs){
             return res.status(404).json({
@@ -85,20 +88,61 @@ export const getJobbyId = async(req,res)=>{
         
      }
 }
-
+// export const getAdminJobs = async (req, res) => {
+//     try {
+//       const adminId = req.id;
+  
+//       // Find the admin by ID
+//       const admin = await User.findById({_id:adminId});
+//       if (!admin) {
+//         return res.status(404).json({
+//           message: `Admin with ID ${adminId} not found`,
+//           success: false,
+//         });
+//       }
+  
+//       // Find jobs created by the admin
+//       const jobs = await Job.find({ created_by: adminId });
+  
+//       // Check if there are no jobs
+//       if (jobs.length === 0) {
+//         return res.status(404).json({
+//           message: `No jobs found for admin ${admin.name}`,
+//           success: false,
+//         });
+//       }
+  
+//       // Return jobs with success message
+//       return res.status(200).json({
+//         jobs,
+//         message: `Posted Jobs by ${admin.name}`,
+//         success: true,
+//       });
+//     } catch (error) {
+//       console.log(error);
+//       return res.status(500).json({
+//         message: "An error occurred while fetching jobs",
+//         success: false,
+//       });
+//     }
+//   };
+  
 export const getAdminJobs = async(req,res)=>{
       try {
           const adminId = req.id;
+          const admin = await User.findById(adminId);
+
           const jobs = await Job.find({created_by:adminId});
-          if(!jobs){
+          if (jobs.length === 0) {
             return res.status(404).json({
-                message:`No any jobs created by ${adminId.name}`,
-                success:false
+              message: `No jobs found for admin ${admin.name}`,
+              success: false,
             });
-         }
+          }
+        
          return res.status(200).json({
             jobs,
-            message:"Posted Jobs Are",
+            message:`Posted Jobs Are by ${admin.name}`,
             success:false
         });
 
