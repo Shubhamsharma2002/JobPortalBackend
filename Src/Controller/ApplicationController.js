@@ -60,7 +60,7 @@ export const getAppliecJob = async(req,res)=>{
                 success:false
             })
           }
-          return res.status(20).json({
+          return res.status(200).json({
             message:"Applied job are",
             apliedJob,
             success:true
@@ -69,4 +69,34 @@ export const getAppliecJob = async(req,res)=>{
         console.log(error);
         
       }
+}
+
+// admin purpose
+
+export const getApplication = async(req,res)=>{
+    try {
+         const jobId = req.params.id;
+         const job = await Job.findById(jobId)
+         .populate({
+            path:'Application',
+            options:{sort:{createdAt:-1}},
+            populate:{
+                path:'application'
+            }
+         })
+         if(!job){
+            return res.status(404).json({
+                message:"No any applicant",
+                success:false
+            })
+         }
+         return res.status(200).json({
+            message:"Applications are following",
+            job,
+            success:false
+        })
+    } catch (error) {
+        console.log(error);
+        
+    }
 }
