@@ -40,3 +40,33 @@ export const applyjobs = async(req , res)=>{
         
     }
 }
+
+export const getAppliecJob = async(req,res)=>{
+      try {
+          const userId = req.id;
+          const apliedJob = await Application.find({application:userId})
+          .sort({createdAt:-1})
+          .populate({
+            path:'Job',
+            options:{sort:{createdAt:-1}},
+            populate:{
+                path:'Company',
+                options:{sort:{createdAt:-1}},
+            }
+          })
+          if(!apliedJob){
+            return res.status(404).json({
+                message:"No Application",
+                success:false
+            })
+          }
+          return res.status(20).json({
+            message:"Applied job are",
+            apliedJob,
+            success:true
+        })
+      } catch (error) {
+        console.log(error);
+        
+      }
+}
