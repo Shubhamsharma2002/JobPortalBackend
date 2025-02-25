@@ -9,10 +9,11 @@ const applicationRouter = express.Router();
 
 applicationRouter.route("/check").get((req,res)=>{
     const data = {
-        message: "Hello, this is a JSON response by application routes"
+        name: "test dev",
+        email:"teastemail@gmail.com"
     };
-    return res.status(201).json(
-        new ApiResponse(200, data)
+    return res.status(200).json(
+        new ApiResponse(200, data,"Hello, this is a JSON response by application routes")
      )
 })
 
