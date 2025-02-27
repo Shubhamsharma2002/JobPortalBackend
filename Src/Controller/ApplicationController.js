@@ -41,7 +41,7 @@ export const applyjobs = async(req , res)=>{
     }
 }
 
-export const getAppliecJob = async(req,res)=>{
+export const getAppliedJob = async(req,res)=>{
       try {
           const userId = req.id;
           const apliedJob = await Application.find({application:userId})

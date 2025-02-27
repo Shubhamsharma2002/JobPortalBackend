@@ -2,11 +2,15 @@ import express from "express";
 
 import jwtAuth from "../Middleware/jwtAuthMiddleware.js";
 import { ApiResponse } from "../utils/Apiresponse.js";
+import { applyjobs, getAppliedJob } from "../Controller/ApplicationController.js";
 
 
 const applicationRouter = express.Router();
 
-
+applicationRouter.route("/apply/:id").post(jwtAuth,applyjobs);
+applicationRouter.route("/get").get(jwtAuth,getAppliedJob);
+applicationRouter.route("/:id/applicants").get(jwtAuth,getApplication);
+applicationRouter.route("/status/:id/update-status").post(jwtAuth,updateApplicationStatus)
 applicationRouter.route("/check").get((req,res)=>{
     const data = {
         name: "test dev",
