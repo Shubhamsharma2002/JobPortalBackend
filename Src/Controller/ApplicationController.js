@@ -4,7 +4,11 @@ export const applyjobs = async(req , res)=>{
 //    require data from body
     try {
         const userId = req.id;
+        console.log(userId);
+        
         const jobId = req.params.id;
+        console.log(jobId);
+        
         if(!jobId){
             return res.status(400).json({
                 message: "job id is required",
@@ -12,6 +16,8 @@ export const applyjobs = async(req , res)=>{
               });
         }
         const exsitingApplication = await Application.findOne({job:jobId, application:userId});
+        console.log(exsitingApplication);
+        
         if(exsitingApplication){
             return res.status(400).json({
                 message: "you alredy applied for this job",
@@ -19,6 +25,8 @@ export const applyjobs = async(req , res)=>{
               });
         }
         const job = await Job.findById(jobId);
+        console.log(job);
+        
         if(!job){
             return res.status(400).json({
                 message:"Job not found",
@@ -29,6 +37,8 @@ export const applyjobs = async(req , res)=>{
             job:jobId,
             application:userId
         })
+        console.log(newApplication);
+        
         job.applications.push(newApplication._id);
         await job.save();
         return res.status(201).json({
@@ -47,10 +57,10 @@ export const getAppliedJob = async(req,res)=>{
           const apliedJob = await Application.find({application:userId})
           .sort({createdAt:-1})
           .populate({
-            path:'Job',
+            path:'job',
             options:{sort:{createdAt:-1}},
             populate:{
-                path:'Company',
+                path:'company',
                 options:{sort:{createdAt:-1}},
             }
           })
