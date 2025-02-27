@@ -100,3 +100,33 @@ export const getApplication = async(req,res)=>{
         
     }
 }
+export const updateApplicationStatus = async(req,res)=> {
+    
+    try {
+        const {status} = req.body;
+        const applicationId = req.params.id;
+        if(!status){
+            return res.status(400).json({
+                message:"Status is required",
+                success:false
+            })
+        }
+        const application = await Application.findOne({_id:applicationId});
+        if(!application){
+            return res.status(400).json({
+                message:"Application not Found",
+                success:false
+            })
+        }
+        // update status
+        application.status = status.toLowerCase();
+        await application.save();
+        return res.status(200).json({
+            message:"Status updated sucseesfully",
+            success:true
+        })
+    } catch (error) {
+        console.log(error);
+        
+    }
+}
