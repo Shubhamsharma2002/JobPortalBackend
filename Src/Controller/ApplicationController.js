@@ -88,7 +88,7 @@ export const getApplication = async(req,res)=>{
          const jobId = req.params.id;
          const job = await Job.findById(jobId)
          .populate({
-            path:'Application',
+            path:'applications',
             options:{sort:{createdAt:-1}},
             populate:{
                 path:'application'
