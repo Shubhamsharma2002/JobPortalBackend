@@ -12,9 +12,12 @@ userRouter.route("/reset-password").post(resetPassword)
 // router respons testing dummy route
 userRouter.route("/check").get((req,res)=>{
     const data = {
-        message: "Hello, this is a JSON response"
+        name: "abcinfo tech",
+        email:"teastemail@gmail.com"
     };
-    res.json(data); // Sends a JSON response
+    return res.status(200).json(
+        new ApiResponse(200, data,"Hello, this is a JSON response by user routes")
+     )
 })
 
 export default userRouter;

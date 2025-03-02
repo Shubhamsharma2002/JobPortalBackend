@@ -13,9 +13,12 @@ jobRouter.route("/get-jobByadmin").get(jwtAuth,getAdminJobs);
 // test routes
 jobRouter.route("/check").get((req,res)=>{
     const data = {
-        message: "Hello, this is a JSON response by job routes"
+        name: "abcin",
+        email:"teastemail@gmail.com"
     };
-    res.json(data); // Sends a JSON response
+    return res.status(200).json(
+        new ApiResponse(200, data,"Hello, this is a JSON response by job routes")
+     )
 })
 
 

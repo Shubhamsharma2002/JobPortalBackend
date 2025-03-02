@@ -13,9 +13,12 @@ companyRouter.route("/updateCompany/:id").patch(jwtAuth, updateCompany)
 // router respons testing dummy route
 companyRouter.route("/check").get((req,res)=>{
     const data = {
-        message: "Hello, this is a JSON response by company routes"
+        name: "abcinfo tech",
+        email:"teastemail@gmail.com"
     };
-    res.json(data); // Sends a JSON response
+    return res.status(200).json(
+        new ApiResponse(200, data,"Hello, this is a JSON response by comapny routes")
+     )
 })
 
 export default companyRouter;
