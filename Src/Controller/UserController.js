@@ -25,11 +25,14 @@ export const reqgister = async(req,res)=>{
             password:hashedPassword,
             role
         })
-        return res.status(201).json({
-            reg,
-            message:"Registration sucessfully",
-            success:true
-        })
+        // return res.status(201).json({
+        //     reg,
+        //     message:"Registration sucessfully",
+        //     success:true
+        // })
+        return res.status(201).json(
+            new ApiResponse(201, reg,"Registration sucessfully")
+         )
     } catch (error) {
         console.log("erorr in registartion catch block ", error);
     }
@@ -73,13 +76,19 @@ export const login = async (req,res) =>{
            }
            const token = await jwt.sign(tokenData,process.env.SECERETE_KEY,{expiresIn:'1d'});
 
-           return res.status(200)
-           .cookie("token",token,{maxAge:1*24*60*60*1080, httpsOnly:true,sameSite:'strict'}).
-           json({
-               message:`welcome back ${validEmail.name}`,
-               loggedInUser,
-               success:true
-           })
+        //    return res.status(200)
+        //    .cookie("token",token,{maxAge:1*24*60*60*1080, httpsOnly:true,sameSite:'strict'}).
+        //    json({
+        //        message:`welcome back ${validEmail.name}`,
+        //        loggedInUser,
+        //        success:true
+        //    })
+        return res.status(200)
+        .cookie("token",token,{maxAge:1*24*60*60*1080, httpsOnly:true,sameSite:'strict'})
+        .json(
+            new ApiResponse(200,loggedInUser,`welcome back ${validEmail.name}`)
+         )
+        
     } catch (error) {
        console.log("error in login conroller",error);   
     }
@@ -89,10 +98,13 @@ export const logout = async (req,res)=>{
       try {
          return res.status(200)
          .cookie("token","",{maxAge:0})
-         .json({
-             message:"Logout successfully",
-             success:true
-         })
+        //  .json({
+        //      message:"Logout successfully",
+        //      success:true
+        //  })
+        .json(
+            new ApiResponse("Logout successfully")
+         )
       } catch (error) {
         console.log("error in logout block", error);
         
