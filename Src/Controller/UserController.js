@@ -138,11 +138,15 @@ export const updateProfile = async(req,res)=>{
         if (skills) user.profile.skills = skillsArray;
 
         const update_Data = await user.save();
-        return res.status(201).json({
-            update_Data,
-            message:"Profile updated  sucessfully",
-            success:true
-        })
+        return res.status(201)
+        // .json({
+        //     update_Data,
+        //     message:"Profile updated  sucessfully",
+        //     success:true
+        // })
+        .json(
+            new ApiResponse(update_Data,"Profile updated  sucessfully")
+         )
     } catch (error) {
         console.error(error);
     }
