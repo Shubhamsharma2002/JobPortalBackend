@@ -153,9 +153,13 @@ export const updateProfile = async(req,res)=>{
 }
 
 export const resetPassword = async(req,res)=>{
-    return res.status(201).json({
+    return res.status(201)
+    .json(
+        new ApiResponse("chill  sucessfully")
+     )
+    // json({
        
-        message:"chill  sucessfully",
-        success:true
-    })
+    //     message:"chill  sucessfully",
+    //     success:true
+    // })
 }

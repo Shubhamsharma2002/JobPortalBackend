@@ -26,11 +26,15 @@ export const postJobs = async(req , res)=>{
                 created_by:userId
             })
 
-            return res.status(201).json({
-                job,
-                message:"New job Created sucessfully",
-                success:true
-            })
+            return res.status(201)
+            .json(
+                new ApiResponse(201,job,"New job Created sucessfully")
+             )
+            // json({
+            //     job,
+            //     message:"New job Created sucessfully",
+            //     success:true
+            // })
 
       } catch (error) {
         console.log(error);
