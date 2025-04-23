@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-
+// / compzny schema
 const companySchema = new mongoose.Schema({
    name:{
     type:String,
